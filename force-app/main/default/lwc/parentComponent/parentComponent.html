@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Parent Component">
+        <h1>Most recent message from children: {recentSpeak}</h1>
+        <c-child-component 
+             onspeak={handleSpeak} 
+             child-name="Peter" age="12">
+            </c-child-component>
+        <c-child-component 
+             onspeak={handleSpeak} 
+             child-name="Theresa" 
+             age="20"></c-child-component>
+    </lightning-card>
+
+   
+</template>

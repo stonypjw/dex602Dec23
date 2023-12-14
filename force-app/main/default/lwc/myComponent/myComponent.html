@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="My Component">
+        <div class="slds-m-left_small">
+            <lightning-button title="Show Contacts" label="Show Contacts" onclick={toggleView}></lightning-button>
+            <template lwc:if={showContacts}>
+                <template for:each={contacts} for:item="con" for:index="idx">
+                    <div key={con.Id} class="slds-m-top_small">
+                        <p>{idx}. Name: {con.Name} | Title: {con.Title}</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

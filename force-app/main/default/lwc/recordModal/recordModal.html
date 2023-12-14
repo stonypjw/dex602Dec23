@@ -1,0 +1,17 @@
+<template>
+    <lightning-modal-header label={headerLabel}>
+    </lightning-modal-header>
+    <lightning-modal-body>
+        <c-opportunity-record-form
+            record-id={recordId}
+            object-api-name={objectApiName}
+            form-mode="edit"
+            layout-type="Compact"
+            oncancel={handleCancel}
+            onsuccess={handleSuccess}>
+        </c-opportunity-record-form>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <p> This information is proprietary</p>
+    </lightning-modal-footer>
+</template>
