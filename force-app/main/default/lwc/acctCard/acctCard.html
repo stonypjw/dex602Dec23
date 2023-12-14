@@ -1,7 +1,7 @@
 <template>
     <lightning-card>
         <h3 slot="title" class="slds-tile__title slds-truncate" title={name}>
-            {name}</h3>
+            <a onclick={handleSelect}>{name}</a></h3>
         <div class="slds-tile">
             <div class="slds-tile__detail">
                 <!-- Phone | Website | 	Account Number | Annual Revenue-->

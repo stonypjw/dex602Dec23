@@ -9,4 +9,9 @@ export default class AcctCard extends LightningElement {
     @api phone;
     @api website;
     
+    handleSelect() {
+        const selectEvent = new CustomEvent('selected', { detail: { 'prop1': this.accountId, 'prop2': this.name}});
+        this.dispatchEvent(selectEvent);
+    }
+
 }
