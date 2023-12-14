@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Top 5 Accounts By Annual Revenue" icon-name="standard:account">
+        <template lwc:if={recordsToDisplay}>
+            <template for:each={displayedAccts} for:item="acc">
+                <div key={acc.Id}>
+                    <c-acct-card name={acc.Name} account-id={acc.Id} accnum={acc.AccountNumber}
+                        revenue={acc.AnnualRevenue} phone={acc.Phone} website={acc.Website}>
+                    </c-acct-card>
+                </div>
+            </template>
+        </template>
+        <template lwc:else>
+            <p>No records to display....</p>
+        </template>
+    </lightning-card>
+
+</template>

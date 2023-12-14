@@ -7,7 +7,9 @@ import { subscribe, unsubscribe } from 'lightning/empApi';
 import OPP_NAME_FIELD from '@salesforce/schema/Opportunity.Name';
 import OPP_AMOUNT_FIELD from '@salesforce/schema/Opportunity.Amount';
 import OPP_STAGE_FIELD from '@salesforce/schema/Opportunity.StageName';
-import OPP_CLOSEDATE_FIELD from '@salesforce/schema/Opportunity.C';
+import OPP_CLOSEDATE_FIELD from '@salesforce/schema/Opportunity.CloseDate';
+import { updateRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class OpportunityList extends LightningElement {
 
@@ -24,12 +26,13 @@ export default class OpportunityList extends LightningElement {
     subscription = {};
     tableChecked = false;
     cardChecked = true;   
+    draftValues = [];
 
     columns = [
         {label: 'Opportunity Name', fieldName: OPP_NAME_FIELD.fieldApiName, type: 'text' },
-        {label: 'Amount', fieldName: OPP_AMOUNT_FIELD.fieldApiName, type: 'currency' },
+        {label: 'Amount', fieldName: OPP_AMOUNT_FIELD.fieldApiName, type: 'currency', editable: true },
         {label: 'Stage', fieldName: OPP_STAGE_FIELD.fieldApiName, type: 'text' },
-        {label: 'Close Date', fieldName: OPP_CLOSEDATE_FIELD.fieldApiName, type: 'date' }
+        {label: 'Close Date', fieldName: OPP_CLOSEDATE_FIELD.fieldApiName, type: 'date', editable: true}
     ];
 
     @track comboOptions = [
@@ -176,6 +179,47 @@ export default class OpportunityList extends LightningElement {
             this.cardChecked = false;
             this.tableChecked = true; 
         }
+
+    }
+
+    handleTableSave(event) {
+        this.draftValues = event.detail.draftValues;
+        console.log('Draft Values : '+this.draftValues);
+
+        //convert values into input items to prepare for record update
+        const inputItems = this.draftValues.slice().map(draft => {
+            var fields = Object.assign({}, draft);
+            return { fields };
+        });
+
+        console.log('InputItems : '+JSON.stringify(inputItems));
+
+        //Create list of Promise objects to send via updateRecord
+        const promises = inputItems.map(recordInput => updateRecord(recordInput));
+
+        Promise.all(promises)
+            .then (result => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success!',
+                        message: 'Updates to records have been made',
+                        variant: 'success'
+                    })
+                );
+            })
+            .catch( error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error!',
+                        message: 'Errors have been detected',
+                        variant: 'error'
+                    })
+                );
+            })
+            .finally(() => {
+                this.draftValues = [];
+            });
+                
 
     }
 }

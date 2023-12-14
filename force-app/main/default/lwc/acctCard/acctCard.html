@@ -1,0 +1,27 @@
+<template>
+    <lightning-card>
+        <h3 slot="title" class="slds-tile__title slds-truncate" title={name}>
+            {name}</h3>
+        <div class="slds-tile">
+            <div class="slds-tile__detail">
+                <!-- Phone | Website | 	Account Number | Annual Revenue-->
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Account Number">Account Number:</dt>
+                    <dd class="slds-item_detail slds-truncate" title={accnum}>{accnum}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Annual Revenue">Annual Revenue:</dt>
+                    <dd class="slds-item_detail slds-truncate" title={revenue}>
+                        <lightning-formatted-number value={revenue} format-style="currency"></lightning-formatted-number>
+                    </dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Phone">Phone:</dt>
+                    <dd class="slds-item_detail slds-truncate" title={phone}>
+                        <lightning-formatted-phone value={phone}></lightning-formatted-phone></dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Website">Website:</dt>
+                    <dd class="slds-item_detail slds-truncate" title={website}>
+                        <lightning-formatted-url value={website} tooltip="Corporate Website" target="_blank"></lightning-formatted-url>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    </lightning-card>
+</template>

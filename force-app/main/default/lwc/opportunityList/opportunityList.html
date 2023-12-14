@@ -32,7 +32,7 @@
         <template lwc:if={tableChecked}>
             <div class="slds-border_top slds-border_bottom slds-border_right slds-border_left">
                 <lightning-datatable data={displayedOpps} key-field="Id" columns={columns}
-                       hide-checkbox-column></lightning-datatable>
+                       hide-checkbox-column draft-values={draftValues} onsave={handleTableSave}></lightning-datatable>
             </div>
         </template>
         <template lwc:else>
