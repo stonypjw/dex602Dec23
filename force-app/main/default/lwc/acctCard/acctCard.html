@@ -21,6 +21,33 @@
                     </dd>
                 </dl>
             </div>
+            <template lwc:if={loadingContacts}>
+                <lightning-spinner alternate-text="Loading contacts.....">
+                     </lightning-spinner>
+            </template>
+            <template lwc:if={showContacts}>
+                <template for:each={contacts} for:item="con">
+                    <div key={con.Id} class="slds-m-left_large">
+                        <ul class="slds-list_horizontal slds-has-dividers_right">
+                            <li class="slds-item"> {con.Name}</li>
+                            <li class="slds-item">{con.Title}</li>
+                            <li class="slds-item">
+                                <lightning-formatted-email value={con.Email}></lightning-formatted-email>
+                            </li>
+                            <li class="slds-item">
+                                <lightning-formatted-phone value={con.Phone}></lightning-formatted-phone>
+                            </li>
+                        </ul>
+                    </div>
+                </template>
+            </template>
+        </div>
+        <div slot="actions">
+            <lightning-icon title="Show Contacts" 
+                        icon-name="standard:contact" size="x-small"
+                            onclick={displayContacts}></lightning-icon>
+            <lightning-icon title="Credit Check" icon-name="utility:currency" size="x-small"
+                            onclick={checkCredit}></lightning-icon>
         </div>
 
     </lightning-card>
